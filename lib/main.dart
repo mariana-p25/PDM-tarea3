@@ -47,42 +47,55 @@ class MyApp extends StatelessWidget {
                                 fontSize: 30,
                               ),
                             ),
-                            Text(state.contador.toString()),
                           ],
                         ),
                       ),
                       Align(
                         alignment: Alignment.bottomCenter,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.end,
                           children: [
-                            MaterialButton(
-                              color: Colors.white,
-                              child: Text("SKIP"),
-                              onPressed: () {
-                                BlocProvider.of<FrontBloc>(context)
-                                    .add(SkipEvent());
-                              },
-                            ),
-                            MaterialButton(
-                              color: Colors.lightGreen,
-                              child: Text("GOT IT",
+                            Padding(
+                              padding: EdgeInsets.only(bottom: 20.0),
+                              child: Text(state.contador.toString(),
                                 style: TextStyle(
-                                  color: Colors.white,
+                                  color: Colors.grey,
+                                  fontSize: 20,
                                 ),
                               ),
-                              onPressed: () {
-                                BlocProvider.of<FrontBloc>(context)
-                                    .add(GotEvent());
-                              },
                             ),
-                            MaterialButton(
-                              color: Colors.white,
-                              child: Text("END GAME"),
-                              onPressed: () {
-                                BlocProvider.of<FrontBloc>(context)
-                                    .add(EndEvent());
-                              },
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                MaterialButton(
+                                  color: Colors.white,
+                                  child: Text("SKIP"),
+                                  onPressed: () {
+                                    BlocProvider.of<FrontBloc>(context)
+                                        .add(SkipEvent());
+                                  },
+                                ),
+                                MaterialButton(
+                                  color: Colors.lightGreen,
+                                  child: Text("GOT IT",
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                  onPressed: () {
+                                    BlocProvider.of<FrontBloc>(context)
+                                        .add(GotEvent());
+                                  },
+                                ),
+                                MaterialButton(
+                                  color: Colors.white,
+                                  child: Text("END GAME"),
+                                  onPressed: () {
+                                    BlocProvider.of<FrontBloc>(context)
+                                        .add(EndEvent());
+                                  },
+                                ),
+                              ],
                             ),
                           ],
                         ),
@@ -109,22 +122,23 @@ class MyApp extends StatelessWidget {
                                 fontSize: 30,
                               ),
                             ),
-                          ],
-                        ),
-                      ),
-                      Align(
-                        alignment: Alignment.bottomCenter,
-                        child: MaterialButton(
-                          color: Colors.lightGreen,
-                          child: Text("PLAY AGAIN!",
-                            style: TextStyle(
-                              color: Colors.white,
+                            Padding(
+                              padding: EdgeInsets.only(top: 30.0),
+                              child: MaterialButton(
+                                color: Colors.lightGreen,
+                                child: Text(
+                                  "PLAY AGAIN",
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                  ),
+                                ),
+                                onPressed: () {
+                                  BlocProvider.of<FrontBloc>(context)
+                                      .add(StartEvent());
+                                },
+                              ),
                             ),
-                          ),
-                          onPressed: () {
-                            BlocProvider.of<FrontBloc>(context)
-                                .add(StartEvent());
-                          },
+                          ],
                         ),
                       ),
                     ],

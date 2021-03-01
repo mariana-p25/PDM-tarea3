@@ -18,7 +18,6 @@ class FrontBloc extends Bloc<FrontEvent, FrontState> {
   Stream<FrontState> mapEventToState(
     FrontEvent event,
   ) async* {
-    print(list2);
     if (event is StartEvent) {
       list2.shuffle();
       listSize = list1.length;
