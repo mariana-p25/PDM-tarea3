@@ -9,8 +9,8 @@ part 'front_state.dart';
 
 class FrontBloc extends Bloc<FrontEvent, FrontState> {
   FrontBloc() : super(FrontInitial());
-  List<String> list1 = ["Perro", "Gato"];
-  List<String> list2 = ["Perro", "Gato"];
+  List<String> list1 = ["Guitarra", "Teclado", "Batería", "Bajo", "Piano", "Micrófono", "Flauta", "Violín", "Arpa", "Acordeón"];
+  List<String> list2 = ["Guitarra", "Teclado", "Batería", "Bajo", "Piano", "Micrófono", "Flauta", "Violín", "Arpa", "Acordeón"];
   int listSize;
   int count = 0;
   int i = 0;
@@ -18,7 +18,9 @@ class FrontBloc extends Bloc<FrontEvent, FrontState> {
   Stream<FrontState> mapEventToState(
     FrontEvent event,
   ) async* {
+    print(list2);
     if (event is StartEvent) {
+      list2.shuffle();
       listSize = list1.length;
       count = 0;
       i = 0;

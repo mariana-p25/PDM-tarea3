@@ -10,10 +10,17 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Material App',
+      theme: ThemeData(
+        primarySwatch: Colors.lightGreen,
+      ),
       home: Scaffold(
         appBar: AppBar(
-            //title: Text('Material App Bar'),
+            title: Text('Guess the word',
+              style: TextStyle(
+                color: Colors.white,
+              ),
             ),
+        ),
         body: BlocProvider(
           create: (context) => FrontBloc(),
           child: BlocConsumer<FrontBloc, FrontState>(
@@ -23,112 +30,143 @@ class MyApp extends StatelessWidget {
             builder: (context, state) {
               if (state is GameStartedState) {
                 return Container(
-                  child: Center(
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Text(state.titulo),
-                        SizedBox(
-                          height: 10.0,
+                  child: Stack(
+                    children: [
+                      Align(
+                        alignment: Alignment.center,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(state.titulo),
+                            SizedBox(
+                              height: 20.0,
+                            ),
+                            Text(
+                              state.palabra,
+                              style: TextStyle(
+                                fontSize: 30,
+                              ),
+                            ),
+                            Text(state.contador.toString()),
+                          ],
                         ),
-                        Text(
-                          state.palabra,
-                          style: TextStyle(
-                            fontSize: 30,
-                          ),
+                      ),
+                      Align(
+                        alignment: Alignment.bottomCenter,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            MaterialButton(
+                              color: Colors.white,
+                              child: Text("SKIP"),
+                              onPressed: () {
+                                BlocProvider.of<FrontBloc>(context)
+                                    .add(SkipEvent());
+                              },
+                            ),
+                            MaterialButton(
+                              color: Colors.lightGreen,
+                              child: Text("GOT IT",
+                                style: TextStyle(
+                                  color: Colors.white,
+                                ),
+                              ),
+                              onPressed: () {
+                                BlocProvider.of<FrontBloc>(context)
+                                    .add(GotEvent());
+                              },
+                            ),
+                            MaterialButton(
+                              color: Colors.white,
+                              child: Text("END GAME"),
+                              onPressed: () {
+                                BlocProvider.of<FrontBloc>(context)
+                                    .add(EndEvent());
+                              },
+                            ),
+                          ],
                         ),
-                        Text(state.contador.toString()),
-                        SizedBox(
-                          height: 35.0,
-                        ),
-                        MaterialButton(
-                          color: Colors.green,
-                          child: Text("SKIP"),
-                          onPressed: () {
-                            BlocProvider.of<FrontBloc>(context)
-                                .add(SkipEvent());
-                          },
-                        ),
-                        MaterialButton(
-                          color: Colors.green,
-                          child: Text("GOT IT"),
-                          onPressed: () {
-                            BlocProvider.of<FrontBloc>(context).add(GotEvent());
-                          },
-                        ),
-                        MaterialButton(
-                          color: Colors.green,
-                          child: Text("END GAME"),
-                          onPressed: () {
-                            BlocProvider.of<FrontBloc>(context).add(EndEvent());
-                          },
-                        ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
                 );
               } else if (state is GameEndState) {
                 return Container(
-                  child: Center(
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Text(state.titulo),
-                        SizedBox(
-                          height: 10.0,
+                  child: Stack(
+                    children: [
+                      Align(
+                        alignment: Alignment.center,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(state.titulo),
+                            SizedBox(
+                              height: 20.0,
+                            ),
+                            Text(
+                              state.contador.toString(),
+                              style: TextStyle(
+                                fontSize: 30,
+                              ),
+                            ),
+                          ],
                         ),
-                        Text(
-                          state.contador.toString(),
-                          style: TextStyle(
-                            fontSize: 30,
+                      ),
+                      Align(
+                        alignment: Alignment.bottomCenter,
+                        child: MaterialButton(
+                          color: Colors.lightGreen,
+                          child: Text("PLAY AGAIN!",
+                            style: TextStyle(
+                              color: Colors.white,
+                            ),
                           ),
-                        ),
-                        SizedBox(
-                          height: 35.0,
-                        ),
-                        MaterialButton(
-                          color: Colors.green,
-                          child: Text("PLAY AGAIN!"),
                           onPressed: () {
                             BlocProvider.of<FrontBloc>(context)
                                 .add(StartEvent());
                           },
                         ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
                 );
               } else
-                return Container(
-                  child: Center(
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Text("Get ready to"),
-                        SizedBox(
-                          height: 10.0,
-                        ),
-                        Text(
-                          "Guess the word!",
+              return Container(
+                child: Stack(
+                  children: [
+                    Align(
+                      alignment: Alignment.center,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text("Get ready to"),
+                          SizedBox(height: 20.0),
+                          Text(
+                            "Guess the word!",
+                            style: TextStyle(fontSize: 30),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Align(
+                      alignment: Alignment.bottomCenter,
+                      child: MaterialButton(
+                        child: Text(
+                          "PLAY",
                           style: TextStyle(
-                            fontSize: 30,
+                            color: Colors.white,
                           ),
                         ),
-                        SizedBox(
-                          height: 35.0,
-                        ),
-                        MaterialButton(
-                          color: Colors.green,
-                          child: Text("PLAY"),
-                          onPressed: () {
-                            BlocProvider.of<FrontBloc>(context)
-                                .add(StartEvent());
-                          },
-                        ),
-                      ],
+                        color: Colors.lightGreen,
+                        onPressed: () {
+                          BlocProvider.of<FrontBloc>(context)
+                              .add(StartEvent());
+                        },
+                      ),
                     ),
-                  ),
-                );
+                  ],
+                ),
+              );
             },
           ),
         ),
